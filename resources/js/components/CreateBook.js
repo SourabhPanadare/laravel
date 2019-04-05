@@ -64,6 +64,7 @@ class CreateBook extends Component {
       published_year: this.state.bookPublishedyear,
       publisher: this.state.bookPublisher
     }
+    console.log(books);
     let uri = MyGlobleSetting.url + '/api/books';
     axios.post(uri, books).then((response) => {
       browserHistory.push('/display-item');

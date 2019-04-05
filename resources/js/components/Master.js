@@ -5,15 +5,15 @@ class Master extends Component {
   render(){
     return (
       <div className="container">
-        <nav className="navbar navbar-default">
+        <nav className="navbar navbar-expand-lg navbar-default bg-primary">
           <div className="container-fluid">
             <div className="navbar-header">
-              <a className="navbar-brand" href="http://sourabhportfolio.in">Sourabh Portfolio</a>
+              <a className="navbar-brand text-white" href="http://sourabhportfolio.in">Sourabh Portfolio</a>
             </div>
             <ul className="nav navbar-nav">
-              <li><Link to="/">Home</Link></li>
-              <li><Link to="add-item">Create Book</Link></li>
-              <li><Link to="display-item">Books</Link></li>
+              <li className="nav-item"><Link className="nav-link text-white" to="/">Home</Link></li>
+              <li className="nav-item"><Link className="nav-link text-white" to="add-item">Create Book</Link></li>
+              <li className="nav-item"><Link className="nav-link text-white" to="display-item">Books</Link></li>
             </ul>
           </div>
       </nav>

@@ -27,20 +27,26 @@ class DisplayBook extends Component {
             <td>{item.isbn}</td>
             <td>{item.title}</td>
             <td>{item.author}</td>
+            <td>
+              <form onSubmit={this.handleSubmit}>
+                  <Link to={"edit/"+item.id} className="btn btn-primary">Edit</Link>
+                 <input type="submit" value="Delete" className="btn btn-danger"/>
+               </form>
+             </td>
            </tr>
          )
       });
     }
     return (
-      <div>
-        <h1>Books</h1>
-
+      <div className="display-page">
         <div className="row">
-          <div className="col-md-10"></div>
-          <div className="col-md-2">
-            <Link to="/add-item">Create Book</Link>
+          <div className="col-md-10">
+            <h3 className="page-title">Simple Crud Using React &amp; Laravel </h3>
           </div>
-        </div><br />
+          <div className="col-md-2">
+            <div className="create-button"><Link to="/add-item">Create Book</Link></div>
+          </div>
+        </div>
 
         <table className="table table-hover">
             <thead>
@@ -55,7 +61,7 @@ class DisplayBook extends Component {
               {items}
             </tbody>
         </table>
-    </div>
+      </div>
     )
   }
 }
