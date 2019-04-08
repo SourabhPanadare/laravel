@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import { Link } from 'react-router';
-import TableRow from './TableRow';
+//import TableRow from './TableRow';
 import MyGlobleSetting from './MyGlobleSetting';
 
 class DisplayBook extends Component {
@@ -19,6 +19,14 @@ class DisplayBook extends Component {
    })
   }
 
+  handleSubmit(event) {
+    event.preventDefault();
+    let uri = MyGlobleSetting.url + `/api/books/${this.props.obj.id}`;
+    console.log(uri);
+    axios.delete(uri);
+      browserHistory.push('/display-item');
+  }
+
   render(){
     if(this.state.books instanceof Array){
       var items = this.state.books.map((item) => {
@@ -27,11 +35,10 @@ class DisplayBook extends Component {
             <td>{item.isbn}</td>
             <td>{item.title}</td>
             <td>{item.author}</td>
-            <td>
-              <form onSubmit={this.handleSubmit}>
+            <td align="right">
                   <Link to={"edit/"+item.id} className="btn btn-primary">Edit</Link>
-                 <input type="submit" value="Delete" className="btn btn-danger"/>
-               </form>
+                  <input type="submit" value="Delete" className="btn btn-danger delete-button"/>
+
              </td>
            </tr>
          )
@@ -44,23 +51,24 @@ class DisplayBook extends Component {
             <h3 className="page-title">Simple Crud Using React &amp; Laravel </h3>
           </div>
           <div className="col-md-2">
-            <div className="create-button"><Link to="/add-item">Create Book</Link></div>
+            <div className="create-button float-right"><Link to="/add-item" className="btn btn-primary">Create Book</Link></div>
           </div>
         </div>
-
-        <table className="table table-hover">
-            <thead>
-            <tr>
-                <td>ISBN</td>
-                <td>Title</td>
-                <td>Author</td>
-                <td width="200px">Actions</td>
-            </tr>
-            </thead>
-            <tbody>
-              {items}
-            </tbody>
-        </table>
+        <form onSubmit={this.handleSubmit}>
+          <table className="table table-hover table-bordered">
+              <thead>
+              <tr>
+                  <td>ISBN</td>
+                  <td>Title</td>
+                  <td>Author</td>
+                  <td width="200px"></td>
+              </tr>
+              </thead>
+              <tbody>
+                {items}
+              </tbody>
+          </table>
+        </form>
       </div>
     )
   }

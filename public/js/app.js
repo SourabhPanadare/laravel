@@ -68685,7 +68685,17 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Create Book"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "create-page"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-10"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
+        className: "page-title"
+      }, "Create Book")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-2"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         onSubmit: this.handleSubmit
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row"
@@ -68777,8 +68787,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/es/index.js");
-/* harmony import */ var _TableRow__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./TableRow */ "./resources/js/components/TableRow.js");
-/* harmony import */ var _MyGlobleSetting__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./MyGlobleSetting */ "./resources/js/components/MyGlobleSetting.js");
+/* harmony import */ var _MyGlobleSetting__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./MyGlobleSetting */ "./resources/js/components/MyGlobleSetting.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -68799,7 +68808,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-
+ //import TableRow from './TableRow';
 
 
 
@@ -68826,7 +68835,7 @@ function (_Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(_MyGlobleSetting__WEBPACK_IMPORTED_MODULE_4__["default"].url + '/api/books').then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(_MyGlobleSetting__WEBPACK_IMPORTED_MODULE_3__["default"].url + '/api/books').then(function (response) {
         _this2.setState({
           books: response.data
         });
@@ -68835,22 +68844,29 @@ function (_Component) {
       });
     }
   }, {
+    key: "handleSubmit",
+    value: function handleSubmit(event) {
+      event.preventDefault();
+      var uri = _MyGlobleSetting__WEBPACK_IMPORTED_MODULE_3__["default"].url + "/api/books/".concat(this.props.obj.id);
+      console.log(uri);
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"](uri);
+      browserHistory.push('/display-item');
+    }
+  }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
-
       if (this.state.books instanceof Array) {
         var items = this.state.books.map(function (item) {
-          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, item.isbn), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, item.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, item.author), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
-            onSubmit: _this3.handleSubmit
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, item.isbn), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, item.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, item.author), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+            align: "right"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router__WEBPACK_IMPORTED_MODULE_2__["Link"], {
             to: "edit/" + item.id,
             className: "btn btn-primary"
           }, "Edit"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
             type: "submit",
             value: "Delete",
-            className: "btn btn-danger"
-          }))));
+            className: "btn btn-danger delete-button"
+          })));
         });
       }
 
@@ -68865,14 +68881,17 @@ function (_Component) {
       }, "Simple Crud Using React & Laravel ")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-md-2"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "create-button"
+        className: "create-button float-right"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-        to: "/add-item"
-      }, "Create Book")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
-        className: "table table-hover"
+        to: "/add-item",
+        className: "btn btn-primary"
+      }, "Create Book")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        onSubmit: this.handleSubmit
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
+        className: "table table-hover table-bordered"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "ISBN"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Title"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Author"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
         width: "200px"
-      }, "Actions"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, items)));
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, items))));
     }
   }]);
 
@@ -68990,87 +69009,6 @@ var MyGlobleSetting = function MyGlobleSetting() {
 
 /***/ }),
 
-/***/ "./resources/js/components/TableRow.js":
-/*!*********************************************!*\
-  !*** ./resources/js/components/TableRow.js ***!
-  \*********************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/es/index.js");
-/* harmony import */ var _MyGlobleSetting__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MyGlobleSetting */ "./resources/js/components/MyGlobleSetting.js");
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-
-
-
-
-var TableRow =
-/*#__PURE__*/
-function (_Component) {
-  _inherits(TableRow, _Component);
-
-  function TableRow(props) {
-    var _this;
-
-    _classCallCheck(this, TableRow);
-
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(TableRow).call(this, props));
-    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
-    return _this;
-  }
-
-  _createClass(TableRow, [{
-    key: "handleSubmit",
-    value: function handleSubmit(event) {
-      event.preventDefault();
-      var uri = _MyGlobleSetting__WEBPACK_IMPORTED_MODULE_2__["default"].url + "/api/books/".concat(this.props.obj.id);
-      axios["delete"](uri);
-      react_router__WEBPACK_IMPORTED_MODULE_1__["browserHistory"].push('/display-item');
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, this.props.obj.id), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, this.props.obj.isbn), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, this.props.obj.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, this.props.obj.image), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, this.props.obj.author), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, this.props.obj.description), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, this.props.obj.published_year), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, this.props.obj.publisher), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
-        onSubmit: this.handleSubmit
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-        to: "edit/" + this.props.obj.id,
-        className: "btn btn-primary"
-      }, "Edit"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "submit",
-        value: "Delete",
-        className: "btn btn-danger"
-      }))));
-    }
-  }]);
-
-  return TableRow;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
-
-/* harmony default export */ __webpack_exports__["default"] = (TableRow);
-
-/***/ }),
-
 /***/ "./resources/js/components/UpdateBook.js":
 /*!***********************************************!*\
   !*** ./resources/js/components/UpdateBook.js ***!
@@ -69121,11 +69059,21 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(UpdateBook).call(this, props));
     _this.state = {
-      title: '',
-      body: ''
+      bookIsbn: '',
+      bookTitle: '',
+      bookImage: '',
+      bookAuthor: '',
+      bookDescription: '',
+      bookPublishedyear: '',
+      bookPublisher: ''
     };
     _this.handleChange1 = _this.handleChange1.bind(_assertThisInitialized(_this));
     _this.handleChange2 = _this.handleChange2.bind(_assertThisInitialized(_this));
+    _this.handleChange3 = _this.handleChange3.bind(_assertThisInitialized(_this));
+    _this.handleChange4 = _this.handleChange4.bind(_assertThisInitialized(_this));
+    _this.handleChange5 = _this.handleChange5.bind(_assertThisInitialized(_this));
+    _this.handleChange6 = _this.handleChange6.bind(_assertThisInitialized(_this));
+    _this.handleChange7 = _this.handleChange7.bind(_assertThisInitialized(_this));
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     return _this;
   }
@@ -69135,10 +69083,15 @@ function (_Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(_MyGlobleSetting__WEBPACK_IMPORTED_MODULE_3__["default"].url + "/api/products/".concat(this.props.params.id, "/edit")).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(_MyGlobleSetting__WEBPACK_IMPORTED_MODULE_3__["default"].url + "/api/books/".concat(this.props.params.id, "/edit")).then(function (response) {
         _this2.setState({
-          title: response.data.title,
-          body: response.data.body
+          bookIsbn: response.data.isbn,
+          bookTitle: response.data.title,
+          bookImage: response.data.image,
+          bookAuthor: response.data.author,
+          bookDescription: response.data.description,
+          bookPublishedyear: response.data.published_year,
+          bookPublisher: response.data.publisher
         });
       })["catch"](function (error) {
         console.log(error);
@@ -69148,14 +69101,49 @@ function (_Component) {
     key: "handleChange1",
     value: function handleChange1(e) {
       this.setState({
-        title: e.target.value
+        bookIsbn: e.target.value
       });
     }
   }, {
     key: "handleChange2",
     value: function handleChange2(e) {
       this.setState({
-        body: e.target.value
+        bookTitle: e.target.value
+      });
+    }
+  }, {
+    key: "handleChange3",
+    value: function handleChange3(e) {
+      this.setState({
+        bookImage: e.target.value
+      });
+    }
+  }, {
+    key: "handleChange4",
+    value: function handleChange4(e) {
+      this.setState({
+        bookAuthor: e.target.value
+      });
+    }
+  }, {
+    key: "handleChange5",
+    value: function handleChange5(e) {
+      this.setState({
+        bookDescription: e.target.value
+      });
+    }
+  }, {
+    key: "handleChange6",
+    value: function handleChange6(e) {
+      this.setState({
+        bookPublishedyear: e.target.value
+      });
+    }
+  }, {
+    key: "handleChange7",
+    value: function handleChange7(e) {
+      this.setState({
+        bookPublisher: e.target.value
       });
     }
   }, {
@@ -69164,45 +69152,111 @@ function (_Component) {
       var _this3 = this;
 
       event.preventDefault();
-      var products = {
-        title: this.state.title,
-        body: this.state.body
+      var books = {
+        isbn: this.state.bookIsbn,
+        title: this.state.bookTitle,
+        image: this.state.bookImage,
+        author: this.state.bookAuthor,
+        description: this.state.bookDescription,
+        published_year: this.state.bookPublishedyear,
+        publisher: this.state.bookPublisher
       };
-      var uri = _MyGlobleSetting__WEBPACK_IMPORTED_MODULE_3__["default"].url + '/api/products/' + this.props.params.id;
-      axios__WEBPACK_IMPORTED_MODULE_1___default.a.patch(uri, products).then(function (response) {
+      var uri = _MyGlobleSetting__WEBPACK_IMPORTED_MODULE_3__["default"].url + '/api/books/' + this.props.params.id;
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.patch(uri, books).then(function (response) {
         _this3.props.history.push('/display-item');
       });
     }
   }, {
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Update Product"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "update-page"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-md-10"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
+        className: "page-title"
+      }, "Update Book")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-md-2"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "create-button"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router__WEBPACK_IMPORTED_MODULE_2__["Link"], {
         to: "/display-item",
         className: "btn btn-success"
-      }, "Return to Product"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+      }, "Return to Books")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         onSubmit: this.handleSubmit
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-4"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-group"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Product Title"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Book ISBN:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        className: "form-control",
+        value: this.state.isbn,
+        onChange: this.handleChange1
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-4"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Book Title:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
         className: "form-control",
         value: this.state.title,
-        onChange: this.handleChange1
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        onChange: this.handleChange2
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-4"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Book Image:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        className: "form-control",
+        value: this.state.image,
+        onChange: this.handleChange3
+      })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        "class": "row"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-4"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Book Author:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        className: "form-control",
+        value: this.state.author,
+        onChange: this.handleChange4
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-4"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-group"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         name: "product_body"
-      }, "Product Body"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+      }, "Book Description:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
         className: "form-control",
-        onChange: this.handleChange2,
-        value: this.state.body
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        onChange: this.handleChange5,
+        value: this.state.description
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-4"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Book Published Year:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        className: "form-control",
+        value: this.state.published_year,
+        onChange: this.handleChange6
+      })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        "class": "row"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-4"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Book Publisher:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        className: "form-control",
+        value: this.state.publisher,
+        onChange: this.handleChange7
+      })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-group"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn btn-primary"

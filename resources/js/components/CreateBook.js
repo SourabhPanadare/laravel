@@ -73,8 +73,15 @@ class CreateBook extends Component {
 
     render() {
       return (
-      <div>
-        <h1>Create Book</h1>
+      <div className="create-page">
+        <div className="row">
+          <div className="col-md-10">
+            <h3 className="page-title">Create Book</h3>
+          </div>
+          <div className="col-md-2">
+
+          </div>
+        </div>
         <form onSubmit={this.handleSubmit}>
           <div className="row">
             <div className="col-md-4">
@@ -129,7 +136,7 @@ class CreateBook extends Component {
               <button className="btn btn-primary">Add Book</button>
             </div>
         </form>
-  </div>
+      </div>
       )
     }
 }
