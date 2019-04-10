@@ -3,6 +3,7 @@
   https://itsolutionstuff.com/post/laravel-5-simple-crud-application-using-reactjs-part-1example.html
   https://itsolutionstuff.com/post/laravel-5-simple-crud-application-using-reactjs-part-2example.html
   https://getcomposer.org/download/
+  https://github.com/FortAwesome/react-fontawesome
 
 # Installation Steps
 
@@ -17,6 +18,11 @@
   php artisan preset react
   npm install
   npm install --save react-router@3.2.0
+
+  npm i --save @fortawesome/fontawesome-svg-core
+  npm i --save @fortawesome/free-solid-svg-icons
+  npm i --save @fortawesome/react-fontawesome
+  npm i --save @fortawesome/free-brands-svg-icons
 
   npm run dev
   php artisan serve

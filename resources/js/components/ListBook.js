@@ -2,9 +2,11 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import { Link } from 'react-router';
 import {browserHistory} from 'react-router';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import MyGlobleSetting from './MyGlobleSetting';
 
-class DisplayBook extends Component {
+class ListBook extends Component {
     constructor(props) {
        super(props);
        this.state = {value: '', books: ''};
@@ -43,22 +45,13 @@ class DisplayBook extends Component {
     }
     return (
       <div className="display-page">
-
-        <div className="row">
-          <div className="col-md-10">
-            <h3 className="page-title">Simple Crud Using React &amp; Laravel </h3>
-          </div>
-          <div className="col-md-2">
-            <div className="create-button float-right"><Link to="/add-item" className="btn btn-primary">Create Book</Link></div>
-          </div>
-        </div>
         <table className="table table-hover table-bordered">
             <thead>
             <tr>
                 <td>ISBN</td>
                 <td>Title</td>
                 <td>Author</td>
-                <td width="200"></td>
+                <td width="200" className="text-center"><Link to="/add-item" className="btn btn-primary"><FontAwesomeIcon icon="plus" size="lg" inverse/></Link></td>
             </tr>
             </thead>
             <tbody>
@@ -69,4 +62,4 @@ class DisplayBook extends Component {
     )
   }
 }
-export default DisplayBook;
+export default ListBook;

@@ -8,7 +8,18 @@
 require('./bootstrap');
 import React from 'react';
 import { render } from 'react-dom';
-import { Router, Route, browserHistory } from 'react-router';
+import { Router, Route, browserHistory, IndexRoute } from 'react-router';
+
+/**
+ * FontAwesome Inclusion
+ */
+
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fab } from '@fortawesome/free-brands-svg-icons'
+import { faSignOutAlt, faPlus, faInfoCircle, faPen, faTrash, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+
+library.add(fab, faSignOutAlt, faPlus, faInfoCircle, faPen, faTrash, faArrowLeft)
+
 /**
  * Next, we will create a fresh React component instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -20,14 +31,16 @@ import Master from './components/Master';
 import CreateBook from './components/CreateBook';
 import DisplayBook from './components/DisplayBook';
 import UpdateBook from './components/UpdateBook';
+import ListBook from './components/ListBook';
 
 render(
   <Router history={browserHistory}>
       <Route path="/" component={Master} >
+        <IndexRoute component={ListBook} />
         <Route path="/add-item" component={CreateBook} />
         <Route path="/display-item" component={DisplayBook} />
         <Route path="/edit/:id" component={UpdateBook} />
       </Route>
-    </Router>,
-        document.getElementById('crud-app')
+  </Router>,
+  document.getElementById('crud-app')
 );

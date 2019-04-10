@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import { Link } from 'react-router';
+import {browserHistory} from 'react-router';
 import MyGlobleSetting from './MyGlobleSetting';
 
 class UpdateBook extends Component {
@@ -76,7 +77,7 @@ class UpdateBook extends Component {
     }
     let uri = MyGlobleSetting.url + '/api/books/'+this.props.params.id;
     axios.patch(uri, books).then((response) => {
-          this.props.history.push('/display-item');
+        browserHistory.push('/display-item');
     });
   }
   render(){
@@ -97,7 +98,7 @@ class UpdateBook extends Component {
                     <label>Book ISBN:</label>
                     <input type="text"
                       className="form-control"
-                      value={this.state.isbn}
+                      value={this.state.bookIsbn}
                       onChange={this.handleChange1} />
                 </div>
              </div>
@@ -106,7 +107,7 @@ class UpdateBook extends Component {
                     <label>Book Title:</label>
                     <input type="text"
                       className="form-control"
-                      value={this.state.title}
+                      value={this.state.bookTitle}
                       onChange={this.handleChange2} />
                  </div>
               </div>
@@ -115,18 +116,18 @@ class UpdateBook extends Component {
                     <label>Book Image:</label>
                     <input type="text"
                       className="form-control"
-                      value={this.state.image}
+                      value={this.state.bookImage}
                       onChange={this.handleChange3} />
                 </div>
               </div>
             </div>
-            <div class="row">
+            <div className="row">
               <div className="col-md-4">
                 <div className="form-group">
                     <label>Book Author:</label>
                     <input type="text"
                       className="form-control"
-                      value={this.state.author}
+                      value={this.state.bookAuthor}
                       onChange={this.handleChange4} />
                 </div>
               </div>
@@ -134,7 +135,7 @@ class UpdateBook extends Component {
                 <div className="form-group">
                     <label name="product_body">Book Description:</label>
                     <textarea className="form-control"
-                      onChange={this.handleChange5} value={this.state.description}></textarea>
+                      onChange={this.handleChange5} value={this.state.bookDescription}></textarea>
                 </div>
               </div>
               <div className="col-md-4">
@@ -142,24 +143,24 @@ class UpdateBook extends Component {
                     <label>Book Published Year:</label>
                     <input type="text"
                       className="form-control"
-                      value={this.state.published_year}
+                      value={this.state.bookPublishedyear}
                       onChange={this.handleChange6} />
                 </div>
               </div>
             </div>
-            <div class="row">
+            <div className="row">
               <div className="col-md-4">
                 <div className="form-group">
                     <label>Book Publisher:</label>
                     <input type="text"
                       className="form-control"
-                      value={this.state.publisher}
+                      value={this.state.bookPublisher}
                       onChange={this.handleChange7} />
                 </div>
               </div>
             </div>
             <div className="form-group">
-                <button className="btn btn-primary">Update</button>
+                <button type="submit" className="btn btn-primary">Update</button>
             </div>
         </form>
     </div>
