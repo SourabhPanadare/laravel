@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
+use JWTAuth;
+use JWTAuthException;
 
 class UserController extends Controller
 {
@@ -16,52 +19,72 @@ class UserController extends Controller
 
     }
 
-    /**
-     * Send the response after the user was authenticated.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    protected function sendLoginResponse(Request $request)
-    {
-        $request->session()->regenerate();
+    private function getToken($email, $password)
+      {
+          $token = null;
+          //$credentials = $request->only('email', 'password');
+          try {
+              if (!$token = JWTAuth::attempt( ['email'=>$email, 'password'=>$password])) {
+                  return response()->json([
+                      'response' => 'error',
+                      'message' => 'Password or email is invalid',
+                      'token'=>$token
+                  ]);
+              }
+          } catch (JWTAuthException $e) {
+              return response()->json([
+                  'response' => 'error',
+                  'message' => 'Token creation failed',
+              ]);
+          }
+          return $token;
+      }
 
-        $this->clearLoginAttempts($request);
+     public function login(Request $request)
+     {
+         $user = \App\User::where('email', $request->email)->get()->first();
+         if ($user && \Hash::check($request->password, $user->password)) // The passwords match...
+         {
+             $token = self::getToken($request->email, $request->password);
+             $user->auth_token = $token;
+             $user->save();
+             $response = ['success'=>true, 'data'=>['id'=>$user->id,'auth_token'=>$user->auth_token,'name'=>$user->name, 'email'=>$user->email]];
+         }
+         else
+           $response = ['success'=>false, 'data'=>'Record doesnt exists'];
 
-        $user = $this->guard()->user();
+         return response()->json($response, 201);
+     }
 
-        if($this->authenticated($request, $user)) {
-            return response()->json([
-                'success' => true,
-                'user' => $user
-            ], 200);
-        }
-    }
+     public function register(Request $request)
+      {
+          $payload = [
+              'password'=>\Hash::make($request->password),
+              'email'=>$request->email,
+              'name'=>$request->name,
+              'auth_token'=> ''
+          ];
 
-    /**
-     * The user has been authenticated.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  mixed  $user
-     * @return mixed
-     */
-    protected function authenticated(Request $request, $user)
-    {
-        return true;
-    }
+          $user = new \App\User($payload);
+          if ($user->save())
+          {
 
-    /**
-     * Get the failed login response instance.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    protected function sendFailedLoginResponse(Request $request)
-    {
-        return response()->json([
-            'success' => false,
-            'message' => trans('auth.failed')
-        ], 422);
-    }
+              $token = self::getToken($request->email, $request->password); // generate user token
 
+              if (!is_string($token))  return response()->json(['success'=>false,'data'=>'Token generation failed'], 201);
+
+              $user = \App\User::where('email', $request->email)->get()->first();
+
+              $user->auth_token = $token; // update user token
+
+              $user->save();
+
+              $response = ['success'=>true, 'data'=>['name'=>$user->name,'id'=>$user->id,'email'=>$request->email,'auth_token'=>$token]];
+          }
+          else
+              $response = ['success'=>false, 'data'=>'Couldnt register user'];
+
+
+          return response()->json($response, 201);
+      }
 }

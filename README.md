@@ -30,3 +30,69 @@
 
   npm run dev
   php artisan serve
+
+# Laravel-React Authentication installations
+
+  composer.json:-
+    "require":{
+      "tymon/jwt-auth": "dev-develop#34d8e48 as 1.0.0-rc.3.2"
+    }
+  $ composer update
+
+  config/app.php:-
+    'providers' => [
+        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+     ],
+
+     'aliases' => [
+        'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
+     ],
+  php artisan vendor:publish
+  php artisan jwt:secret
+
+  Create jwtMiddleware.php and register it in app/Http/kernel.php file.
+  Create app/Http/Middleware/API.php for Access-Control-Allow-Origin and register it in app/Http/kernel.php file.
+
+  app/Http/kernel.php:-
+  protected $routeMiddleware = [
+    'jwt-auth' => \App\Http\Middleware\jwtMiddleware::class,
+    'api-header' => \App\Http\Middleware\API::class,
+  ];
+
+  Controllers/UserController.php:-
+    private function getToken($email, $password){
+
+    }
+
+    public function login(Request $request){
+
+    }
+
+    public function register(Request $request){
+
+    }
+
+  routes/api.php:-
+
+    Route::group(['middleware' => ['jwt.auth','api-header']], function () {
+
+    });
+
+    Route::group(['middleware' => 'api-header'], function () {
+
+    });
+
+  app/User.php:-
+
+    class User extends Authenticatable implements JWTSubject{
+      protected $fillable = [
+          'name', 'email', 'password','auth_token'
+      ];
+      public function getJWTIdentifier(){
+
+      }
+      public function getJWTCustomClaims()
+      {
+
+      }
+    }

@@ -11,21 +11,6 @@ import { render } from 'react-dom';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 
 /**
- * Forms Component
- */
-
-import { createStore, combineReducers } from 'redux'
-import { reducer as formReducer } from 'redux-form'
-import { Provider} from 'react-redux'
-
-const rootReducer = combineReducers({
-  form: formReducer,
-  // my other reducers come here
-});
-
-const store = createStore(rootReducer);
-
-/**
  * FontAwesome Inclusion
  */
 
@@ -48,11 +33,14 @@ import DisplayBook from './components/DisplayBook';
 import UpdateBook from './components/UpdateBook';
 import ListBook from './components/ListBook';
 import LoginBook from './components/LoginBook';
+import RegisterBook from './components/RegisterBook';
 
 render(
   <Router history={browserHistory}>
       <Route path="/" component={Master} >
         <IndexRoute component={LoginBook} />
+        <Route path="/register" component={RegisterBook} />
+        <Route path="/books" component={ListBook} />
         <Route path="/add-item" component={CreateBook} />
         <Route path="/display-item" component={DisplayBook} />
         <Route path="/edit/:id" component={UpdateBook} />

@@ -2,56 +2,70 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import { Link } from 'react-router';
 import {browserHistory} from 'react-router';
-import { reducer as formReducer,reduxForm,Field } from 'redux-form';
+import $ from "jquery";
 import MyGlobleSetting from './MyGlobleSetting';
 
 class LoginBook extends Component {
     constructor(props) {
        super(props);
-       this.state = {value: '', users: ''};
+       this.state = {isLoggedIn: false, user: {}};
      }
      componentDidMount(){
-       axios.get(MyGlobleSetting.url + '/api/users')
-       .then(response => {
-         this.setState({ users: response.data });
-       })
-       .catch(function (error) {
-         console.log(error);
-       })
+
      }
+
   render(){
+    const styles = {
+      formformat: {
+        backgroundColor:"#f1f1f1",
+        padding:15,
+        width:"45%"
+      }
+    };
     return (
-      <div className="container mt-5">
-         <div className="row justify-content-center">
-             <div className="col-6">
-                 <div className="card">
-                     <div className="card-body">
-                     <h2 className="text-center font-weight-light mb-4">Sign into your account</h2>
-                         <form onSubmit={this.handleSubmit}>
-                             <Field
-                                 label="Email Address"
-                                 name="email"
-                                 component={FormField}
-                                 id="email"
-                                 type="text"
-                                 className="form-control"
-                             />
-                             <Field label="Password" name="password" component={FormField} id="password" type="password" className="form-control" />
-                             <div className="form-check">
-                                 <label className="form-check-label">
-                                     <Field name="remember" component="input" type="checkbox" className="form-check-input mt-2" value="1" />
-                                     Remember me
-                                 </label>
-                             </div>
-                             <div className="form-group mt-4">
-                                 <button type="submit" className="btn btn-secondary">Login</button>
-                             </div>
-                         </form>
-                     </div>
-                 </div>
+      <div className="login-form mx-auto mt-5" style={styles.formformat}>
+        <form id="login-form" action=""  method="post">
+          <div className="container" id="main">
+             <div className="form-group">
+                <label htmlFor="email"><b>Email</b></label>
+                <input
+                  autoComplete="off"
+                  id="email-input"
+                  name="email"
+                  type="text"
+                  className="center-block form-control"
+                  placeholder="Enter email"
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="password"><b>Password</b></label>
+                <input
+                  autoComplete="off"
+                  id="password-input"
+                  name="password"
+                  type="password"
+                  className="center-block form-control"
+                  placeholder="Enter password"
+                />
+              </div>
+              <div className="form-group clearfix">
+                <div className="button-container float-right">
+                  <button
+                    type="submit"
+                    className="text-center btn btn-primary mr-2"
+                    id="email-login-btn"
+                    href="#facebook"
+                  >
+                   Login
+                 </button>
+                 <Link className="btn btn-danger" to="/register">
+                   Register
+                 </Link>
+                </div>
              </div>
-         </div>
-     </div>
+          </div>
+        </form>
+      </div>
     )
   }
 }
