@@ -5,6 +5,7 @@
   https://getcomposer.org/download/
   https://github.com/FortAwesome/react-fontawesome
   https://medium.com/@Gbxnga/token-based-authentication-with-react-and-laravel-restful-api-83f16581e85
+  http://1000projects.org/food-ordering-management-system-php-mysql-project.html
 
 # Installation Steps
 
