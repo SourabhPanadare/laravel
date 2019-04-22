@@ -5,6 +5,7 @@
   https://getcomposer.org/download/
   https://github.com/FortAwesome/react-fontawesome
   https://medium.com/@Gbxnga/token-based-authentication-with-react-and-laravel-restful-api-83f16581e85
+  https://www.5balloons.info/laravel-authentication-tutorial-login-logout-register-forgot-password-remember-me-functionality/
   http://1000projects.org/food-ordering-management-system-php-mysql-project.html
 
 # Installation Steps
@@ -12,8 +13,10 @@
   composer create-project --prefer-dist laravel/laravel laravel-react
   follow https://getcomposer.org/download/
   php artisan key:generate
+  php artisan make:auth
   .env database credentials
-
+  php artisan migrate
+ 
   php artisan make:migration create_books_table
   php artisan make:model Book
   php artisan make:controller BookController --resource
