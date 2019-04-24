@@ -11,10 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/{path?}', function () {
-    return view('welcome');
-});
+Route::get('/', 'PostController@all');
+Route::get('/posts/{post}', 'PostController@single');
+Auth::routes();
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/admin/{any}', 'AdminController@index')->where('any', '.*');

@@ -1,50 +1,68 @@
 
 /**
  * First we will load all of this project's JavaScript dependencies which
- * includes React and other helpers. It's a great starting point while
- * building robust, powerful web applications using React + Laravel.
+ * includes Vue and other libraries. It is a great starting point when
+ * building robust, powerful web applications using Vue and Laravel.
  */
 
 require('./bootstrap');
-import React from 'react';
-import { render } from 'react-dom';
-import { Router, Route, browserHistory, IndexRoute } from 'react-router';
+
+//window.Vue = require('vue');
+
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+import Homepage from './components/Homepage'
+import Create from './components/Create'
+import Read from './components/Read'
+import Update from './components/Update'
+
+Vue.use(VueRouter)
 
 /**
- * FontAwesome Inclusion
+ * The following block of code may be used to automatically register your
+ * Vue components. It will recursively scan this directory for the Vue
+ * components and automatically register them with their "basename".
+ *
+ * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { fab } from '@fortawesome/free-brands-svg-icons'
-import { faSignOutAlt, faPlus, faInfoCircle, faPen, faTrash, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+// const files = require.context('./', true, /\.vue$/i);
+// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-library.add(fab, faSignOutAlt, faPlus, faInfoCircle, faPen, faTrash, faArrowLeft)
+//Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+
+const router = new VueRouter({
+    mode: 'history',
+    routes: [
+        {
+            path: '/admin/dashboard',
+            name: 'read',
+            component: Read,
+            props: true
+        },
+        {
+            path: '/admin/create',
+            name: 'create',
+            component: Create,
+            props: true
+        },
+        {
+            path: '/admin/update',
+            name: 'update',
+            component: Update,
+            props: true
+        },
+    ],
+});
 
 /**
- * Next, we will create a fresh React component instance and attach it to
+ * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-//require('./components/Example');
-import Master from './components/Master';
-import CreateBook from './components/CreateBook';
-import DisplayBook from './components/DisplayBook';
-import UpdateBook from './components/UpdateBook';
-import ListBook from './components/ListBook';
-import LoginBook from './components/LoginBook';
-import RegisterBook from './components/RegisterBook';
-
-render(
-  <Router history={browserHistory}>
-      <Route path="/" component={Master} >
-        <IndexRoute component={LoginBook} />
-        <Route path="/register" component={RegisterBook} />
-        <Route path="/books" component={ListBook} />
-        <Route path="/add-item" component={CreateBook} />
-        <Route path="/display-item" component={DisplayBook} />
-        <Route path="/edit/:id" component={UpdateBook} />
-      </Route>
-  </Router>,
-  document.getElementById('crud-app')
-);
+ const app = new Vue({
+     el: '#app',
+     router,
+     components: { Homepage },
+ });

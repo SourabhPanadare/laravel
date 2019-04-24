@@ -6,7 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable implements JWTSubject
+class User extends Authenticatable
 {
     use Notifiable;
 
@@ -16,7 +16,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','auth_token'
+        'name', 'email', 'password',
     ];
 
     /**
@@ -37,23 +37,28 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
-    /**
-    * Get the identifier that will be stored in the subject claim of the JWT.
-    *
-    * @return mixed
-    */
-     public function getJWTIdentifier()
-     {
-         return $this->getKey();
-     }
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
 
-     /**
-    * Return a key value array, containing any custom claims to be added to the JWT.
-    *
-    * @return array
-    */
-     public function getJWTCustomClaims()
-     {
-         return [];
-     }
+    public function checkRoles($roles)
+    {
+        if (is_array($roles)) {
+            return $this->hasAnyRole($roles) || abort(404);
+        }
+        return $this->hasRole($roles) || abort(404);
+    }
+    public function hasAnyRole($roles)
+    {
+        return null !== $this->roles()->whereIn('name', $roles)->first();
+    }
+    public function hasRole($role)
+    {
+        return null !== $this->roles()->where('name', $role)->first();
+    }
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 }
