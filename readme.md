@@ -6,6 +6,11 @@ https://pusher.com/tutorials/cms-laravel-vue-part-3
 https://pusher.com/tutorials/cms-laravel-vue-part-4
 https://pusher.com/tutorials/cms-laravel-vue-part-5
 https://github.com/boudlal/stock-management
+https://github.com/creativetimofficial/vue-light-bootstrap-dashboard
+
+## Project Run
+npm run dev
+php artisan serve
 
 ## Installation Steps
 composer create-project --prefer-dist laravel/laravel onlineorderingsystem

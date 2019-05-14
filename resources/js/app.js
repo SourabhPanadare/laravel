@@ -11,13 +11,17 @@ require('./bootstrap');
 
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Homepage from './components/Homepage'
-import Create from './components/Create'
-import Read from './components/Read'
-import Update from './components/Update'
+// LightBootstrap plugin
+import LightBootstrap from './light-bootstrap-main'
+import './registerServiceWorker'
+
+import Dashboard from './layout/DashboardLayout'
+import Create from './pages/Create'
+import Read from './pages/Read'
+import Update from './pages/Update'
 
 Vue.use(VueRouter)
-
+Vue.use(LightBootstrap)
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -33,6 +37,14 @@ Vue.use(VueRouter)
 
 const router = new VueRouter({
     mode: 'history',
+    linkActiveClass: 'nav-item active',
+    scrollBehavior: (to) => {
+      if (to.hash) {
+        return {selector: to.hash}
+      } else {
+        return { x: 0, y: 0 }
+      }
+    },
     routes: [
         {
             path: '/admin/dashboard',
@@ -64,5 +76,5 @@ const router = new VueRouter({
  const app = new Vue({
      el: '#app',
      router,
-     components: { Homepage },
+     components: { Dashboard },
  });
