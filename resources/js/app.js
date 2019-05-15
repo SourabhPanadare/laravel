@@ -14,6 +14,9 @@ import VueRouter from 'vue-router'
 // LightBootstrap plugin
 import LightBootstrap from './light-bootstrap-main'
 import './registerServiceWorker'
+// Vue Datatable
+import VueGoodTablePlugin from 'vue-good-table';
+import 'vue-good-table/dist/vue-good-table.css'
 
 import Dashboard from './layout/DashboardLayout'
 import Create from './pages/Create'
@@ -22,6 +25,7 @@ import Update from './pages/Update'
 
 Vue.use(VueRouter)
 Vue.use(LightBootstrap)
+Vue.use(VueGoodTablePlugin);
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
