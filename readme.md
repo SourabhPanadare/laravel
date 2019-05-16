@@ -8,6 +8,7 @@ https://pusher.com/tutorials/cms-laravel-vue-part-5
 https://github.com/boudlal/stock-management
 https://github.com/creativetimofficial/vue-light-bootstrap-dashboard
 https://xaksis.github.io/vue-good-table/guide/#basic-example
+https://github.com/gresa-neziri/online-food-ordering-system-laravel
 
 ## Project Run
 npm run dev
