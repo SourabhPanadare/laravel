@@ -9,6 +9,7 @@ https://github.com/boudlal/stock-management
 https://github.com/creativetimofficial/vue-light-bootstrap-dashboard
 https://xaksis.github.io/vue-good-table/guide/#basic-example
 https://github.com/gresa-neziri/online-food-ordering-system-laravel
+https://blog.thamaraiselvam.com/finally-configured-xdebug-with-sublime-text-3-on-ubuntu-17-04-ea19aff56c67
 
 ## Project Run
 npm run dev
@@ -118,6 +119,23 @@ app/Http/Controllers/PostController.php:-
   public function destroy(Post $post){}
 
 ## Vue Js Frontend
-npm install --save vue-router
+  npm install --save vue-router
 
-resources/assets/js/app.js:-
+  resources/assets/js/app.js:-
+
+## PHP Debuging
+  sudo apt install php-xdebug
+  sudo nano /etc/php/7.0/mods-available/xdebug.ini
+
+  zend_extension=/usr/lib/php/20151012/xdebug.so
+  xdebug.remote_autostart = 1
+  xdebug.remote_enable = 1
+  xdebug.remote_handler = dbgp
+  xdebug.remote_host = 127.0.0.1
+  xdebug.remote_log = /tmp/xdebug_remote.log
+  xdebug.remote_mode = req
+  xdebug.remote_port = 9005 #if you want to change the port you can change
+
+  sudo systemctl restart php7.0-fpm
+  sudo systemctl restart nginx
+  sudo phpenmod xdebug

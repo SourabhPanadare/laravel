@@ -7,7 +7,7 @@
       <div class="logo">
         <a href="#" class="simple-text logo__container">
             <div class="logo-img">
-                <img src="/img/vue-logo.png" alt="">
+                <img src="/img/chef.png" alt="logo">
             </div>
           {{title}}
         </a>
@@ -43,7 +43,7 @@
     props: {
       title: {
         type: String,
-        default: 'Vue LBD'
+        default: 'Chef`s Express'
       },
       backgroundColor: {
         type: String,
@@ -100,4 +100,7 @@
  .sidebar .sidebar-wrapper .logo .logo__container {
    padding-left: 10px;
  }
+ .sidebar .logo .simple-text .logo-img img, body > .navbar-collapse .logo .simple-text .logo-img img {
+    max-width: 36px !important;
+  }
 </style>

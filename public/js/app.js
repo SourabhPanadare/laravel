@@ -2385,7 +2385,7 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     title: {
       type: String,
-      "default": 'Vue LBD'
+      "default": 'Chef`s Express'
     },
     backgroundColor: {
       type: String,
@@ -2586,18 +2586,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -2615,6 +2603,41 @@ __webpack_require__.r(__webpack_exports__);
         this.$sidebar.displaySidebar(false);
       }
     }
+  },
+  data: function data() {
+    return {
+      menu: [{
+        header: true,
+        title: 'Main Navigation' // component: componentName
+        // visibleOnCollapse: true
+        // class:''
+        // attributes: {}
+
+      }, {
+        href: '/',
+        title: 'Dashboard',
+        icon: 'fa fa-user' // disabled: true
+        // class:''
+        // attributes: {}
+        // alias: '/path'
+
+        /*
+        badge: {
+            text: 'new',
+            // class:''
+            // attributes: {}
+        }
+        */
+
+      }, {
+        title: 'Charts',
+        icon: 'fa fa-chart-area',
+        child: [{
+          href: '/charts/sublink',
+          title: 'Sub Link'
+        }]
+      }]
+    };
   }
 });
 
@@ -7687,7 +7710,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.sidebar .sidebar-wrapper {\n   display: flex;\n   flex-direction: column;\n}\n.sidebar .nav-main__links {\n  flex: 1;\n}\n.sidebar .sidebar-wrapper .logo .logo__container {\n  padding-left: 10px;\n}\n", ""]);
+exports.push([module.i, "\n.sidebar .sidebar-wrapper {\n   display: flex;\n   flex-direction: column;\n}\n.sidebar .nav-main__links {\n  flex: 1;\n}\n.sidebar .sidebar-wrapper .logo .logo__container {\n  padding-left: 10px;\n}\n.sidebar .logo .simple-text .logo-img img, body > .navbar-collapse .logo .simple-text .logo-img img {\n   max-width: 36px !important;\n}\n", ""]);
 
 // exports
 
@@ -62450,7 +62473,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "logo-img" }, [
-      _c("img", { attrs: { src: "/img/vue-logo.png", alt: "" } })
+      _c("img", { attrs: { src: "/img/chef.png", alt: "logo" } })
     ])
   }
 ]
@@ -62635,46 +62658,22 @@ var render = function() {
         [
           _c("mobile-menu", { attrs: { slot: "content" }, slot: "content" }),
           _vm._v(" "),
-          _c("sidebar-link", { attrs: { to: "/admin/overview" } }, [
-            _c("i", { staticClass: "nc-icon nc-chart-pie-35" }),
+          _c("sidebar-link", { attrs: { to: "/admin/products" } }, [
+            _c("i", { staticClass: "fas fa-utensils" }),
             _vm._v(" "),
-            _c("p", [_vm._v("Dashboard")])
+            _c("p", [_vm._v("Kitchen")])
           ]),
           _vm._v(" "),
-          _c("sidebar-link", { attrs: { to: "/admin/user" } }, [
-            _c("i", { staticClass: "nc-icon nc-circle-09" }),
+          _c("sidebar-link", { attrs: { to: "/admin/sales" } }, [
+            _c("i", { staticClass: "fas fa-chart-bar" }),
             _vm._v(" "),
-            _c("p", [_vm._v("User Profile")])
+            _c("p", [_vm._v("Sales")])
           ]),
           _vm._v(" "),
-          _c("sidebar-link", { attrs: { to: "/admin/table-list" } }, [
-            _c("i", { staticClass: "nc-icon nc-notes" }),
+          _c("sidebar-link", { attrs: { to: "/admin/profile" } }, [
+            _c("i", { staticClass: "fas fa-user" }),
             _vm._v(" "),
-            _c("p", [_vm._v("Table list")])
-          ]),
-          _vm._v(" "),
-          _c("sidebar-link", { attrs: { to: "/admin/typography" } }, [
-            _c("i", { staticClass: "nc-icon nc-paper-2" }),
-            _vm._v(" "),
-            _c("p", [_vm._v("Typography")])
-          ]),
-          _vm._v(" "),
-          _c("sidebar-link", { attrs: { to: "/admin/icons" } }, [
-            _c("i", { staticClass: "nc-icon nc-atom" }),
-            _vm._v(" "),
-            _c("p", [_vm._v("Icons")])
-          ]),
-          _vm._v(" "),
-          _c("sidebar-link", { attrs: { to: "/admin/maps" } }, [
-            _c("i", { staticClass: "nc-icon nc-pin-3" }),
-            _vm._v(" "),
-            _c("p", [_vm._v("Maps")])
-          ]),
-          _vm._v(" "),
-          _c("sidebar-link", { attrs: { to: "/admin/notifications" } }, [
-            _c("i", { staticClass: "nc-icon nc-bell-55" }),
-            _vm._v(" "),
-            _c("p", [_vm._v("Notifications")])
+            _c("p", [_vm._v("Customers")])
           ])
         ],
         1
@@ -78264,6 +78263,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_Create__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./pages/Create */ "./resources/js/pages/Create.vue");
 /* harmony import */ var _pages_Read__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./pages/Read */ "./resources/js/pages/Read.vue");
 /* harmony import */ var _pages_Update__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./pages/Update */ "./resources/js/pages/Update.vue");
+/* harmony import */ var _pages_Profile__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./pages/Profile */ "./resources/js/pages/Profile.vue");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -78278,6 +78278,8 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); //window.
 
  // Vue Datatable
 
+
+ // Vue Sidebar Menu
 
 
 
@@ -78315,17 +78317,18 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   },
   routes: [{
     path: '/admin/dashboard',
-    name: 'read',
     component: _pages_Read__WEBPACK_IMPORTED_MODULE_8__["default"],
     props: true
   }, {
+    path: '/admin/profile',
+    component: _pages_Profile__WEBPACK_IMPORTED_MODULE_10__["default"],
+    props: true
+  }, {
     path: '/admin/create',
-    name: 'create',
     component: _pages_Create__WEBPACK_IMPORTED_MODULE_7__["default"],
     props: true
   }, {
     path: '/admin/update',
-    name: 'update',
     component: _pages_Update__WEBPACK_IMPORTED_MODULE_9__["default"],
     props: true
   }]
@@ -79819,6 +79822,38 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Create_vue_vue_type_template_id_234fd476___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/pages/Profile.vue":
+/*!****************************************!*\
+  !*** ./resources/js/pages/Profile.vue ***!
+  \****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+var script = {}
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__["default"])(
+  script,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+component.options.__file = "resources/js/pages/Profile.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 

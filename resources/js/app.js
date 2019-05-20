@@ -15,17 +15,21 @@ import VueRouter from 'vue-router'
 import LightBootstrap from './light-bootstrap-main'
 import './registerServiceWorker'
 // Vue Datatable
-import VueGoodTablePlugin from 'vue-good-table';
+import VueGoodTablePlugin from 'vue-good-table'
 import 'vue-good-table/dist/vue-good-table.css'
+// Vue Sidebar Menu
+
 
 import Dashboard from './layout/DashboardLayout'
 import Create from './pages/Create'
 import Read from './pages/Read'
 import Update from './pages/Update'
+import Profile from './pages/Profile'
 
 Vue.use(VueRouter)
 Vue.use(LightBootstrap)
-Vue.use(VueGoodTablePlugin);
+Vue.use(VueGoodTablePlugin)
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -52,19 +56,21 @@ const router = new VueRouter({
     routes: [
         {
             path: '/admin/dashboard',
-            name: 'read',
             component: Read,
             props: true
         },
         {
+            path: '/admin/profile',
+            component: Profile,
+            props: true
+        },
+        {
             path: '/admin/create',
-            name: 'create',
             component: Create,
             props: true
         },
         {
             path: '/admin/update',
-            name: 'update',
             component: Update,
             props: true
         },
