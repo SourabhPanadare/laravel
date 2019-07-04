@@ -20,6 +20,8 @@ composer create-project --prefer-dist laravel/laravel onlineorderingsystem
 php artisan key:generate
 php artisan make:auth
 php artisan migrate
+sudo chown -R $USER:www-data storage
+sudo chown -R $USER:www-data bootstrap/cache
 
 ## Setting up user roles
 php artisan make:model Role -m
