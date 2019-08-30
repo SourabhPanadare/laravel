@@ -1,143 +1,49 @@
-## Reference Links
-https://www.5balloons.info/laravel-authentication-tutorial-login-logout-register-forgot-password-remember-me-functionality/
-https://pusher.com/tutorials/cms-laravel-vue-part-1
-https://pusher.com/tutorials/cms-laravel-vue-part-2
-https://pusher.com/tutorials/cms-laravel-vue-part-3
-https://pusher.com/tutorials/cms-laravel-vue-part-4
-https://pusher.com/tutorials/cms-laravel-vue-part-5
-https://github.com/boudlal/stock-management
-https://github.com/creativetimofficial/vue-light-bootstrap-dashboard
-https://xaksis.github.io/vue-good-table/guide/#basic-example
-https://github.com/gresa-neziri/online-food-ordering-system-laravel
-https://blog.thamaraiselvam.com/finally-configured-xdebug-with-sublime-text-3-on-ubuntu-17-04-ea19aff56c67
-
-## Project Run
-npm run dev
-php artisan serve
+## Reference
+https://demonuts.com/laravel-5-8-email-verification/
+https://www.itechempires.com/2018/09/how-to-enable-laravel-5-7-email-verification-support/
+https://laraveldaily.com/mail-notifications-customize-templates/
 
 ## Installation Steps
-composer create-project --prefer-dist laravel/laravel onlineorderingsystem
+composer create-project --prefer-dist laravel/laravel laravel-email
 php artisan key:generate
 php artisan make:auth
-php artisan migrate
-sudo chown -R $USER:www-data storage
-sudo chown -R $USER:www-data bootstrap/cache
+php artisan make:notification CustomEmailNotification, php artisan make:notification CustomResetPassword
+php artisan vendor:publish --tag=laravel-notifications
+php artisan vendor:publish --tag=laravel-mail
 
-## Setting up user roles
-php artisan make:model Role -m
-php artisan make:model Post -mr
-php artisan make:migration create_role_user_table
-php artisan make:seeder RoleTableSeeder
-php artisan make:seeder UserTableSeeder
-php artisan make:seeder PostTableSeeder
+## email config on local linux  machine
 
-database/migrations/create_roles_table.php:-
-  public function up()
-  {
-      Schema::create('roles', function (Blueprint $table) {
-        $table->string('name');
-        $table->string('description');
-      }
-  }
-database/migrations/create_role_user_table.php:-
-  public function up()
-  {
-      Schema::create('role_user', function (Blueprint $table) {
-          $table->integer('role_id')->unsigned();
-          $table->integer('user_id')->unsigned();
-      });
-  }
-database/migrations/create_role_posts_table.php:-
-public function up()
-{
-    Schema::create('posts', function (Blueprint $table) {
-      $table->integer('user_id')->unsigned();
-      $table->string('title');
-      $table->text('body');
-      $table->binary('image')->nullable();
-    });
-}
+  Follow this url https://devanswers.co/how-to-get-php-mail-working-on-ubuntu-16-04-digitalocean-droplet/ to configure Postfix in linux machine to send email from local machine
 
-database/seeds/RoleTableSeeder.php:-
-database/seeds/UserTableSeeder.php:-
-database/seeds/DatabaseSeeder.php:-
-  public function run(){}
+  echo "Test Email message body" | mail -s "Email test subject" test@example.com to check email functionality in work
 
-app/User.php:-
-  public function roles(){}
-  public function checkRoles($roles){}
-  public function hasAnyRole($roles){}
-  public function hasRole($role){}
-app/Post.php:-
-  protected $fillable = ['user_id', 'title', 'body', 'image'];
-  public function user(){}
-app/Role.php:-
-  public function users(){}
+## .env setup
 
-app/Http/Controllers/Auth/RegisterController.php:-
-  protected function create(array $data){
-    $user->roles()->attach(\App\Role::where('name', 'user')->first());
-    return $user;
-  }
-app/Http/Controllers/HomeController.php:-
-app/Http/Controllers/AdminController.php:-
-  public function index(Request $request)
-    {
-        if ($request->user()->hasRole('user')) {
-            return redirect('/');
-        }
+    Follow this url https://www.linode.com/docs/email/postfix/configure-postfix-to-send-mail-using-gmail-and-google-apps-on-debian-or-ubuntu/ to configure gmail smtp on linux machine
 
-        if ($request->user()->hasRole('admin')){
-            return redirect('/admin/dashboard');
-        }
-    }
-app/Http/Controllers/PostController.php:-
-  public function all()
-  {
-      $posts = Post::latest()->paginate(5);
-      return view('landing', compact('posts'));
-  }
-  public function single(Post $post)
-  {
-      return view('single', compact('post'));
-  }
-php artisan migrate:fresh --seed
+    MAIL_DRIVER=smtp
+    MAIL_HOST=smtp.gmail.com
+    MAIL_PORT=587
+    MAIL_USERNAME=Your business email ID
+    MAIL_PASSWORD=Your business email password
+    MAIL_ENCRYPTION=tls
+    MAIL_FROM_NAME="Do not Reply"
+    MAIL_FROM_ADDRESS=Your business email ID
 
-## API Creation Procedure
-php artisan make:resource PostResource
-php artisan make:controller AdminController
+    Note :- If smtp.gmail.com is not working then go for mailtrap.io
+    Create account with mailtrap.io for username and password(sanginfo email is used for account)
 
-app/Post.php:-
-   protected $fillable = ['user_id', 'title', 'body', 'image'];
-routes/api.php:-
-   Route::apiResource('posts', 'PostController');
-app/Http/Resources/PostResource.php:-
-  public function toArray($request){}
-app/Http/Controllers/PostController.php:-
-  public function index(){}
-  public function store(Request $request){}
-  public function show(Post $post){}
-  public function update(Request $request, Post $post){}
-  public function destroy(Post $post){}
+    MAIL_DRIVER=smtp
+    MAIL_HOST=smtp.mailtrap.io
+    MAIL_PORT=587
+    MAIL_USERNAME=xxxxx
+    MAIL_PASSWORD=xxxxx
+    MAIL_ENCRYPTION=tls
 
-## Vue Js Frontend
-  npm install --save vue-router
+## Project Structure
+   Gmail Settings:- Account:- Security:- Less Secure app access:- on
 
-  resources/assets/js/app.js:-
-
-## PHP Debuging
-  sudo apt install php-xdebug
-  sudo nano /etc/php/7.0/mods-available/xdebug.ini
-
-  zend_extension=/usr/lib/php/20151012/xdebug.so
-  xdebug.remote_autostart = 1
-  xdebug.remote_enable = 1
-  xdebug.remote_handler = dbgp
-  xdebug.remote_host = 127.0.0.1
-  xdebug.remote_log = /tmp/xdebug_remote.log
-  xdebug.remote_mode = req
-  xdebug.remote_port = 9005 #if you want to change the port you can change
-
-  sudo systemctl restart php7.0-fpm
-  sudo systemctl restart nginx
-  sudo phpenmod xdebug
+   app:-
+    User.php
+  routes:-
+    web.php

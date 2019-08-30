@@ -11,8 +11,10 @@
 |
 */
 
-Route::get('/', 'PostController@all');
-Route::get('/posts/{post}', 'PostController@single');
-Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/admin/{any}', 'AdminController@index')->where('any', '.*');
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Auth::routes(['verify' => true]);
+
+Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');

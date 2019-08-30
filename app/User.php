@@ -5,8 +5,9 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Notifications;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 
@@ -37,28 +38,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function roles()
+    public function sendEmailVerificationNotification()
     {
-        return $this->belongsToMany(Role::class);
+        $this->notify(new \App\Notifications\CustomEmailNotification);
     }
-
-    public function checkRoles($roles)
+    public function sendPasswordResetNotification($token)
     {
-        if (is_array($roles)) {
-            return $this->hasAnyRole($roles) || abort(404);
-        }
-        return $this->hasRole($roles) || abort(404);
-    }
-    public function hasAnyRole($roles)
-    {
-        return null !== $this->roles()->whereIn('name', $roles)->first();
-    }
-    public function hasRole($role)
-    {
-        return null !== $this->roles()->where('name', $role)->first();
-    }
-    public function posts()
-    {
-        return $this->hasMany(Post::class);
+        $this->notify(new \App\Notifications\CustomResetPassword($token));
     }
 }
